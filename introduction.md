@@ -148,7 +148,8 @@ This type of formatting also can be done in other programs other than console ap
 ## C# Data Types
 ---
 C# is strongly typed programming language. So, it defines keywords for fundamental data types. These data types are defined in the ```System``` namespace. And most of them are  So every working C# program must use this namespace.  
-C# is strongly typed programming language. So, it defines keywords for fundamental data types. These data types are defined in the ```System``` namespace. So every working C# program must use this namespace. And most of them are **Common Language Specification (CLS)** complaint.
+C# is strongly typed programming language. So, it defines keywords for fundamental data types. These data types are defined in the ```System``` namespace. So every working C# program must use this namespace. And most of them are **Common Language Specification (CLS)** complaint. CLS-compliant .NET code can be used by any other .NET core programming languages like VB.NET or F#.
+
 | C# name | CLS Compliant? | Meaning |
 | ------------- |:-------------:|:-------------:|
 |bool|Yes| Represents true or false|
@@ -158,4 +159,15 @@ C# is strongly typed programming language. So, it defines keywords for fundament
 |ushort|No| Unsigned 16-bit number|
 |int | Yes| Signed 32-bit number|
 |uint| No| Unsigned 32-bit number|
-||||
+|long|Yes| Signed 64-bit number|
+|ulong|No| Unsigned 64-bit number|
+|char|Yes| Single 16-bit Unicode character |
+|float| Yes| 32-bit floating-point number|
+|double|Yes| 64-bit floating-point number|
+|decimal| Yes| 128-bit signed number|
+|string|Yes| Represents a set of Unicode characters|
+|object|Yes| The base class of all types in the .NET framework|
+
+## Variables and Constant Declaration 
+---
+ 
