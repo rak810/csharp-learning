@@ -227,5 +227,5 @@ Console.WriteLine("Name after replace: {0}", name.Replace("Kor", "Roh"));
 // outputs Name : Korim
 Console.WriteLine("Name : {0}", name); 
 ```
-Here we can see that even after ```Replace()``` method the ```name`` isn't changed at all; rather a new string with the modified value was recieved as output. This is because the strings in C# are immutable. It means that the assigned to a variable can't be modified. 
+Here we can see that even after ```Replace()``` method the ```name``` isn't changed at all; rather a new string with the modified value was recieved as output. This is because the strings in C# are immutable. It means that the assigned to a variable can't be modified. 
 
