@@ -168,6 +168,64 @@ C# is strongly typed programming language. So, it defines keywords for fundament
 |string|Yes| Represents a set of Unicode characters|
 |object|Yes| The base class of all types in the .NET framework|
 
+Other than this data types, the ```System``` namespace defines a few useful data types for which there are no C# name/keyword. These are:
++ System.DateTime
++ System.TimeSpan
++ System.Guid
++ System.Void
+  
 ## Variables and Constant Declaration 
 ---
- 
+Local variable declaration of C# is similar to C/C++. First the data type is declared and then the variable name follows.
+```csharp
+int myInt;
+string str;
+myInt = 0;
+str = "This is a string";
+bool b1 = true, b2 = false;
+double d = 0.0;
+```
+In C#, there is ```default``` literal that can be used to assign a variable the default value for the data type. 
+```csharp
+int myInt = default;
+```
+Variables can be declared using ```new``` keyword also. This also sets the value of the variable to default value.
+
+```csharp
+bool b = new bool(); // Set to false.
+DateTime dt = new new DateTime(); // Set to 1/1/0001 12:00:00 AM.
+double d = new double(); // Set to 0.
+```
+
+![class hierarchy](images\class-hierarchy.png)
+
+The numerical data types derive from a class named ```System.ValueType```. Descendants of this class are automatically allocated on the stack, and, therefor,e have a predictable lifetime and are quite efficient. Those types that don't belong to the ```System.ValueType``` are not allocated on the stack but on the garbage-collected heap. And all the .NET core data types are arranged in a class hierarchy. Each type is ultimately derived from the ```System.Object```, which also defines a set of methods that are common to all the types in the .NET core base class libraries.
+
+### The ```System.Numerics``` namespace
+---
+This namespace defines a structure named ```BigInteger ```. This data type can be used to represent very big numerous values that are not constrained by a fixed upper or lower limit.
+Also another structure ```Complex``` can model mathematically complex numerical data (eg. imaginary units, hyperbolic tangents).
+
+## Working with Strings
+---
+```System.String``` provides a number of properties and methods to work with the strings. This methods can be accessed using dot operator. Also, there are static methods that can't be accessed this way. 
+Some methods are following:
+```csharp
+string name = "Korim";
+// outputs Name : Korim
+Console.WriteLine("Name : {0}", name); 
+// outputs Name Length : 5
+Console.WriteLine("Name Length : {0}", name.Length) 
+// outputs Name in uppercase : KORIM
+Console.WriteLine("Name in uppercase : {0}", name.ToUpper());
+// outputs Name in lowercase : korim
+Console.WriteLine("Name in lowercase: {0}", name.ToLower());
+// outputs Name contains o? : True
+Console.WriteLine("Name contains o?: {0}", name.Contains("o"));
+// outputs Name after replace : Rohim
+Console.WriteLine("Name after replace: {0}", name.Replace("Kor", "Roh"));
+// outputs Name : Korim
+Console.WriteLine("Name : {0}", name); 
+```
+Here we can see that even after ```Replace()``` method the ```name`` isn't changed at all; rather a new string with the modified value was recieved as output. This is because the strings in C# are immutable. It means that the assigned to a variable can't be modified. 
+
