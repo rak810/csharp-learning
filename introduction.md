@@ -222,6 +222,7 @@ class TestClass
 // Must assign a value during declaration otherwise compiler error.
 var myVal;
 
+<<<<<<< HEAD
 
 ```
 Implicitely typed data is also strongly typed data. This is not same as the ```var``` in Javascript.
@@ -234,6 +235,8 @@ str = 44;
 ```
 ### Class Hierarchy of Data Types
 ---
+=======
+>>>>>>> 8ca745ebc966068ccd985035904fd6db206b9a2a
 ![class hierarchy](images/class-hierarchy.png)
 
 The numerical data types derive from a class named ```System.ValueType```. Descendants of this class are automatically allocated on the stack, and, therefor,e have a predictable lifetime and are quite efficient. Those types that don't belong to the ```System.ValueType``` are not allocated on the stack but on the garbage-collected heap. And all the .NET core data types are arranged in a class hierarchy. Each type is ultimately derived from the ```System.Object```, which also defines a set of methods that are common to all the types in the .NET core base class libraries.
