@@ -386,6 +386,170 @@ do
     i++;
 } while(i < 5); //Semicolon is required.
 ```
+## C# Control Flow Constructs
+---
+C# defines two constructs that can be used to control the flow of a program.
+### The ```if/else``` statement
+---
+The ```if/else``` statement in C# is similar to that of the C/C++. But unlike C/C++, C# this statement in C# only operates on boolean expressions, not on values such as -1 or 0. Also, the equality/relational and logical operators are similar to the C/C++.
+```csharp
+string str = "test string";
 
+if (str.Length > 0)
+{
+    Console.WriteLine("Length greater then 0");
+}
+else 
+{
+    Console.WriteLine("String is null");
+}
+```
+The conditional operator (```?:```), also known as the ternary conditional operator, is a shorthand way of writing ```if/else``` statement.
+```csharp
+// condition ? first_expr : second_expr;
+string str = "test string";
+Console.WriteLine(str.Length > 0? 
+    "Length greater then 0" : 
+    "String is null");
+```
+But it has following restrictions.
++ Both types of ```first_expr``` and ``` second_expr``` must be the same.
++ The conditional operator can be used only in assignment statements.
+```csharp
+// this code will generate an error
+str.Length > 0? 
+    Console.WriteLine("Length greater then 0") : 
+    Console.WriteLine("String is null");
+```
 
+### The ```switch``` statement
+---
+The C# ```switch``` statement is similar to the C/C++ ```switch``` statement. Each case that contains executable statements should have a terminating ```return```, ```break```, or ```goto``` to avoid falling through the nex statement. C# ```switch``` statement can evaluate ```int```, ```char```, ```string```, ```bool```, ```enum``` data types.
+
+```csharp
+var foo = 5;
+
+switch (foo)
+{
+    case 1:
+    // do something
+    break;
+    case 2;
+    // do something
+    goto default;
+    default:
+    // default action
+    break;
+}
+```
+## C# Arrays
+---
+An array is a set of data items of same type that can be accessed using a numerical index. There are various ways for initializing C# arrays. If the declared variables are not filled with values, then each index will be filled with default value of that data type. They are following:
+```csharp
+int[] myInts = new int[3];
+// Array initialization syntax using the new keyword.
+string[] stringArr = new string[] { "one", "two", "three"};
+//Array initialization without the new keyword.
+bool[] boolArr = {false, true, false};
+// Array initialization with new keyword and size
+// size must match the number of element in the array.
+int[] intArr = new int[4] {1, 2, 3, 4};
+// new keyword must be used when declaring implicitely type array.
+// items must be of same type
+var[] a = new[] {1, 10, 100, 1000};
+```
+
+It is clear that, C# array items are of same type. Values of different types in same array will cause compiler error. But ```System.Object``` data type can be used to create an array that accomodates values of different types.
+
+```csharp
+object[] myObjs = new Object[4];
+myObjs[0] = 10;
+myObjs[1] = false;
+myObjs[2] = new DateTime(2000, 3, 26);
+myObjs[3] = "a string";
+```
+### C# Multidimensional Arrays
+---
+C# supports two varieties of multidimensional arrays. First one of them is ***rectengular array***, which is simply an array of multiple dimensions where each is of same length.
+```csharp
+// Rectengular Array
+int[,] myMatrix;
+myMatrix = new int[3, 4];
+// Populate (3 * 4) array.
+for(int i = 0; i < 3; i++)
+{
+    for(int j = 0; j < 4; j++)
+    {
+        myMatrix[i, j] = i * j;
+    }
+}
+```
+The second type of multidimensional array is called ***jagged array***. This type of arrays contains some number of inner arrays, each of which may have a different upper limit.
+```csharp
+// Jagged Array
+int[][] myJagArray;
+myJagArray = new int[5][];
+
+// Create jagged array.
+for (int i = 0; i < myJagArray.Length; i++) 
+{
+    myJagArray[i] = new int[i + 7];
+}
+
+// Print each row
+for (int i = 0; i < myJagArray.Length; i++)
+{
+    for (int j = 0; j < myJagArray[i].Length; j++)
+    {
+        Console.Write(myJagArray[i][j] + " ");
+    }
+}
+```
+### Indice and Ranges
+---
+TO simplify working with sequences, C# 8 introduces two new types and two new operators for use:
++ ```System.Index``` represents an index into sequence.
++ ```System.Range``` represents a subrange of indices.
++ The index from end operator ```^``` specifies that the index is relative to the end of the sequence.
++ The range operator (```...```) specifies the start and end of a range as its operands.
+  
+Example for ```System.Index``` is following:
+```csharp
+for (int i = 0; i < arr.Length; i++)
+{
+    Index idx = i;
+    Console.WriteLine("{0}", arr[idx]);
+}
+```
+The index from end operator lets us specify how many positions from the end of sequence, starting with the length. The last item in a sequence is one less than the actual length, so ^0 would actually cause an error. Following code prints the array in reverse.
+
+```csharp
+for (int i = 1; i <= arr.Length; i++)
+{
+    Index idx = ^i;
+    Console.WriteLine("{0}", arr[idx]);
+}
+```
+
+The range operator like python specifies a start and end index, and allows for access to a sub-sequence within a list.
+```csharp
+int arr[] = {1, 2, 4, 5, 6, 7};
+
+// Loop prints -> 1, 2, 4
+foreach(var i in arr[0..4])
+{
+    Console.Write(i + ", ");
+}
+```
+The range also can be declared as follows:
+```csharp
+Range r = 0..4;
+int arr[] = {1, 2, 4, 5, 6, 7};
+
+// Loop prints -> 1, 2, 4
+foreach(var i in arr[r])
+{
+    Console.Write(i + ", ");
+}
+```
 
