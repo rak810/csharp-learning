@@ -196,8 +196,45 @@ bool b = new bool(); // Set to false.
 DateTime dt = new new DateTime(); // Set to 1/1/0001 12:00:00 AM.
 double d = new double(); // Set to 0.
 ```
+### Constant declaration
+---
+Constants are declared with ```const``` modifier. Only the C# built-in types(excluding ```System.Object```) may be declared as ```const```. User defined types including classes, structs and arrays can't be const. Constants must be initialized as they are declared.
+```csharp
+public const int Months = 12;
+```
+### Implicitely Variable Declaration
+---
+In C#, it is possible to declare variable implicitely using ```var``` keyword. This can be used for any type of data.This has some restriction that are following:
++ This keyword can't be used to define return value, parameters, field data of custom type;
++ Variables declared with this keyword must be assigned values during declaration.
+  
+```csharp
+// var variableName = initialValue;
+var myInt = 0;
+var myString = "A string";
+//  Following results in compiler error.
+class TestClass
+{
+    private var myInt = 0;
+    public var MyMethod(var x, var y) {}
+}
 
-![class hierarchy](images\class-hierarchy.png)
+// Must assign a value during declaration otherwise compiler error.
+var myVal;
+
+
+```
+Implicitely typed data is also strongly typed data. This is not same as the ```var``` in Javascript.
+```csharp
+// Following is permissible
+var str = "test";
+str = "new test"
+// Following will produce error
+str = 44;
+```
+### Class Hierarchy of Data Types
+---
+![class hierarchy](images/class-hierarchy.png)
 
 The numerical data types derive from a class named ```System.ValueType```. Descendants of this class are automatically allocated on the stack, and, therefor,e have a predictable lifetime and are quite efficient. Those types that don't belong to the ```System.ValueType``` are not allocated on the stack but on the garbage-collected heap. And all the .NET core data types are arranged in a class hierarchy. Each type is ultimately derived from the ```System.Object```, which also defines a set of methods that are common to all the types in the .NET core base class libraries.
 
@@ -228,4 +265,127 @@ Console.WriteLine("Name after replace: {0}", name.Replace("Kor", "Roh"));
 Console.WriteLine("Name : {0}", name); 
 ```
 Here we can see that even after ```Replace()``` method the ```name``` isn't changed at all; rather a new string with the modified value was recieved as output. This is because the strings in C# are immutable. It means that the assigned to a variable can't be modified. 
+### String interpolation
+---
+Other than the curly-brace syntax, string interpolation can be used to format string. This approach allows directly embedding variables in the strings, rather than tacking them on a comma-delimited list. In this method, the construction of strings begin with a dollar sign (```$```) prefix and still curly-brackets are used to mark a variable placeholder.
+```csharp
+// using curly-bracket syntax
+string name = "Karim";
+string greeting = string.Format("Hello {0}", name);
+// using string interpolation syntax
+string greeting2 = $"Hello {name}";
+string greeting2 = $"Hello {name.ToUpper()}";
+```
+### The ```System.Text.StringBuilder``` Type
+---
+Like ```System.String``` class, the ```StringBuilder``` class defines methods that allows us to replace or fomart string segments. But unlike ```System.String``` , this can directly modfiy the object's internal character data efficietly.
+```csharp
+StringBuilder sb = new StringBuilder("A string");
+// outputs -> A string
+Console.WriteLine(sb);
+sb.replace("A", "a");
+// outputs -> a string
+Console.WriteLine(sb);
+```
+
+## Data Type Conversion
+---
+Explicit type casting in C# can be applied using casting operator ```()```.
+```csharp
+short num1 = 30000;
+short num2 = 50000;
+// short data type can't hold the value of 80000. will overflow
+//casting to int will ensure that no data is lost
+//this is widening operation
+int ans = (int)(num1 + num2);
+```
+Casting to larger data type is called widening and the opposite operation is called narrowing.
+
+```csharp
+int myInt = 200;
+// this narrowing operation.
+byte myByte = byte(myInt);
+```
+It is clear that value 200 can be stored in ```byte``` data type because it has an upperlimit of 256. Casting value greater than will cause overflow or data loss. C# provides two keywords that can detect data loss.
+### The ```checked``` keyword
+When a statement is wrapped with ```checked``` keyword, the C# compiler  test for overflow conditions. If overflow occurs, then it send a runtime execption: ```System.OverflowException.
+```csharp
+int b1 = 100;
+int b2 = 250;
+
+try
+{
+    checked
+    {
+        byte sum = (byte)(b1 + b2);
+    }
+}
+catch (OverflowException ex)
+{
+    // outputs -> Arithmetic operation resulted in an overflow.
+    Console.WriteLine(ex.Message);
+}
+```
+
+### The ```unchecked``` keyword
+---
+This keyword cna disable the throwing of overflow exception on a case-by-case basis. This is identical to ```checked``` keyword.
+```csharp
+// Assuming checked is enabled
+// this block will not trigger a runtime exception
+unchecked
+{
+    byte sum = byte(b1 + b2);
+}
+```
+## C# Iteration Constructs
+There are several iteration statements available in C# which are similar to C/C++ or Java. These loops are:
+1. ```for``` loop
+2. ```foreach``` loop
+3. ```while``` loop
+4. ```do/while``` loop
+   
+Some examples:
+### The ```for``` loop
+---
+```csharp
+for(int i = 0; i < 4; i++)
+{
+    Console.WriteLine("Number is : {0}", i);
+}
+```
+### The ```foreach``` loop
+---
+This allows us to iterate over items without the need to test for an upper limit. But, the ```foreach``` loop will only iterate in linear fasion. thus, we cannot go backword, skip elements.
+```csharp
+int[] myArr = {1, 3, 5, 6};
+foreach(int i in myArr) 
+{
+    Console.WriteLine(i);
+}
+```
+### The ```while ``` loop
+---
+```csharp
+int i = 0;
+
+while(i < 5) 
+{
+    Console.WriteLine(i);
+    i++;
+}
+```
+### The ```do/while ``` loop
+---
+```csharp
+int i = 0;
+
+do
+{
+    Console.WriteLine(i);
+    i++;
+} while(i < 5); //Semicolon is required.
+```
+
+
 
