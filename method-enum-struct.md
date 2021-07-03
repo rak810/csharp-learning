@@ -147,7 +147,181 @@ static double CalcAvg(params double[] values)
 }
 
 
+
 double avg = CalcAvg(4.0, 3.2, 4.7, 54);
 double[] data = {3.0, 2.0, 4.5};
 avg = CalcAvg(data);
+```
+
+## Defining Optional Parameters
+---
+C# allows you to create method that can take optional arguments. This technique allows the caller to invoke as ingle method while omitting arugments deemed unnecessary. Assigned value must be known at the compile time and cannot be resolved at runtime.
+```csharp
+// owner variable has a default value 
+static void PrintData(string msg, string owner = "Donnie")
+{
+    Console.WriteLine("Message : {0}", msg);
+    Console.WriteLine("Owner : {0}", owner);
+}
+// output -> Message : I'm a walrus
+// output -> Owner : Donnie
+PrintData("I'm a walrus");
+
+// output -> Message : Forget it, Donny
+// output -> Owner : Walter
+PrintData("Forget it, Donny", "Walter");
+
+```
+
+## Using Named Arguments
+---
+NAmed arguments allow us to invoke a method by specifying parameter values in any order we choose. 
+
+```csharp
+static void DisplayMsg(ConsoleColor textColor, string msg)
+{
+    Console.ForegroundColor = textColor;
+    Console.WriteLine(msg);
+}
+
+// default way to calling the method 
+DisplayMsg(ConsoleColor.DarkRed, "Jesus Quintana");
+// calling the method using named arguments. Position doesn't matter.
+DisplayMsg(msg: "Jesus Quintana", textColor: ConsoleColor.DarkRed);
+
+```
+## Method Overloading
+---
+Like other modern object-oriented programming languages C# allows method overloading. This means that we can have identically named methods but with different types and number of arguments.
+
+```csharp
+static int Add()
+{
+    return x + y;
+}
+
+static double Add(double x, double y)
+{
+    return x + y;
+}
+
+static long Add(long x, long y)
+{
+    return x + y;
+}
+```
+
+# The ```enum``` Type
+
+This is similar to the C/C++ ```enum```. This type can define named values and corresponding discrete numerical values.
+```csharp
+enum EmpTypeEnum
+{ 
+    Manager,        // = 0
+    Grunt,          // = 1
+    Contractor,     // = 2
+    VicePresident   // = 3
+}
+```
+Here ```EmpTypeEnum``` enumeration defines four named constants, corresponding to discrete numerical values. By default the first elemenet is set to the value zero(0). Enumeration doesn't need to have any sequential. The enumeration values are stored using C# ```int``` data type. This also can be changed.
+```csharp
+enum EmpTypeEnum : byte
+{
+    Manager = 10,
+    Grunt = 1,
+    Contractor = 100,
+    VicePresident = 9
+}
+```
+Enumerations can be declared as following:
+```csharp
+EmpTypeEnum emp = EmpTypeEnum.Grunt;
+```
+Enumeration gain functionality from the ```System.Enum``` class type. This class defines a number of methods that allow you to interrogate and transform a given enumeration. Some of them are following:
+
+```csharp
+EmpTypeEnum emp = EmpTypeEnum.Contractor;
+// outputs -> EmpTypeEnum uses a byte storage
+Console.WriteLine("EmpTypeEnum uses a {0} storage", Enum.GetUnderlyingType(emp.GetType()));
+//Dynamically discovering name-value pairs
+// outputs -> emp is Contractor
+Console.WriteLine("emp is {0}", emp.ToString());
+```
+# Structure (Value Type)
+
+A structure is a user defined type. It can contain any number of data fields and member that operate on these fields.
+```csharp
+struct Point
+{
+    public int X;
+    public int Y;
+
+    public void Increment()
+    {
+        X++;
+        Y++;
+    }
+
+    public void Decrement()
+    {
+        X--;
+        Y--;
+    }
+
+    public void Display()
+    {
+        Console.WriteLine("X = {0}, Y = {Y}", X, Y);
+    }
+
+}
+```
+There are different ways to create a structure variable. Also, the custom constructors are also possible. But the default constructor can't be edited.
+```csharp
+// Must assign all the public field data
+Point p1;
+p1.X = 10;
+p1.Y = 30;
+p1.Display();
+
+// Using constructor will assign default values
+Point p2 = new Point();
+p1.Display();
+```
+# Tuples
+
+Tuples are lightweight data structures that contain multiple fields. Tuple items can have different data types.
+```csharp
+(string, int, string) val1 = ("a", 5, "c");
+var val2 = ("a", 1.5, 3, "fh");
+```
+
+By default compiler assigns each property the name name **```ItemX```**, where X represents the one-based position in the tuple.
+```csharp
+Console.WriteLine($"First item : {val1.Item1}");
+Console.WriteLine($"Second item : {val1.Item2}");
+Console.WriteLine($"Third item : {val1.Item3}");
+```
+But specific names also can be provided in following ways:
+```csharp
+(string a, string b, int c) vals = ("aafg", "fg", 3);
+var vals = (a: "df", b: "dtrt", c: 3);
+(int, int) exp = (custom1: 43, custom2: 645);
+```
+They can be accessed with their specified names.
+```csharp
+Console.WriteLine($"First item : {vals.a}");
+Console.WriteLine($"Second item : {vals.b}");
+Console.WriteLine($"Third item : {vals.c}");
+```
+Tuples can be used as method return values. 
+```csharp
+static (int, string, bool) getVals()
+{
+    return (9, "White boy summer", true);
+}
+
+var samples = getVals();
+Console.WriteLine($"First item : {samples.Item1}");
+Console.WriteLine($"Second item : {samples.Item2}");
+Console.WriteLine($"Third item : {samples.Item3}");
 ```
